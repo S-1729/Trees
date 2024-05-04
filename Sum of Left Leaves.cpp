@@ -26,6 +26,25 @@ public:
     }
 };
 
+//Code-2
+class Solution {
+public: 
+    int solve(TreeNode* root,TreeNode* parent){
+        if(!root) 
+            return 0; 
+        if(root->left==nullptr && root->right==nullptr){
+            if(parent!=nullptr && parent->left==root)
+                return root->val; 
+        }
+        int left=solve(root->left,root);
+        int right=solve(root->right,root);
+        return left+right;
+    }
+    int sumOfLeftLeaves(TreeNode* root) {
+        return solve(root,nullptr);
+    }
+};
+
 /*
     Given the root of a binary tree, return the sum of all left leaves.
     A leaf is a node with no children. A left leaf is a leaf that is the left child of another node. 
