@@ -26,6 +26,30 @@ public:
     }
 };
 
+//Code-2 S.C : O(n)
+class Solution {
+public:
+    int sumNumbers(TreeNode* root) {
+        if(!root) return 0;
+        queue<pair<TreeNode*,int>>q;
+        q.push({root,root->val});
+        int ans=0;
+        while(!q.empty()){
+            TreeNode* node=q.front().first;
+            int sum=q.front().second;
+            q.pop();
+            if(!node->left&&!node->right){
+                ans+=sum;
+            }
+            if(node->left)
+                q.push({node->left,sum*10+node->left->val});
+            if(node->right)
+                q.push({node->right,sum*10+node->right->val});
+        }
+        return ans;
+    }
+};
+
 /*
     You are given the root of a binary tree containing digits from 0 to 9 only.
     Each root-to-leaf path in the tree represents a number.
