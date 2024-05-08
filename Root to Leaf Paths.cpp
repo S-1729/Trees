@@ -9,7 +9,6 @@ struct Node
         left = right = NULL;
     }
 };
-*/
 
 class Solution {
   public:
@@ -26,7 +25,6 @@ class Solution {
         solve(root->right,v);
     }
     vector<vector<int>> Paths(Node* root) {
-        // code here
         solve(root,{});
         return ans;
     }
