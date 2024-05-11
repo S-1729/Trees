@@ -30,6 +30,29 @@ public:
     }
 };
 
+
+//Code-2 S.C : O(n)
+class Solution {
+public:
+    vector<string>ans;
+    void solve(TreeNode* root,string s){
+        if(!root)
+            return ;
+        s=char(root->val+'a')+s;
+        if(!root->left&&!root->right){
+            ans.push_back(s);
+            return ;
+        }
+        solve(root->left,s);
+        solve(root->right,s);
+    }
+    string smallestFromLeaf(TreeNode* root) {
+        solve(root,"");
+        sort(begin(ans),end(ans));
+        return ans[0];
+    }
+};
+
 /*
     You are given the root of a binary tree where each node has a value in the range [0, 25] representing the letters 'a' to 'z'.
     Return the lexicographically smallest string that starts at a leaf of this tree and ends at the root.
