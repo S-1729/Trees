@@ -27,6 +27,35 @@ public:
     }
 };
 
+//Code-2 T.C : O(2n)
+class Solution {
+public:
+    int findSum(TreeNode* root){
+        if(!root)
+            return 0;
+        int left=findSum(root->left);
+        int right=findSum(root->right);
+        return root->val+left+right;
+    }
+    
+    void solve(TreeNode* root,int &currSum,int totalSum){
+        if(!root)
+            return ;
+        solve(root->left,currSum,totalSum);
+        int value=totalSum-currSum;
+        currSum+=root->val;
+        root->val=value;
+        solve(root->right,currSum,totalSum);
+    }
+    
+    TreeNode* bstToGst(TreeNode* root) {
+        int totalSum=findSum(root);
+        int currSum=0;
+        solve(root,currSum,totalSum);
+        return root;
+    }
+};
+
 /*
     Given the root of a Binary Search Tree (BST), convert it to a Greater Tree such that every key of the original BST is changed to the original key plus the sum of all keys greater than the original key in BST.    
     As a reminder, a binary search tree is a tree that satisfies these constraints:
