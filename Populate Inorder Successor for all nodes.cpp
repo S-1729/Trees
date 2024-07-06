@@ -33,6 +33,29 @@ class Solution {
     }
 };
 
+
+//Code-2
+//T.C : O(n)
+//S.C : O(n)
+class Solution {
+  public:
+    vector<Node*>arr;
+    void solve(Node* root){
+        if(!root)
+            return ;
+        solve(root->left);
+        arr.push_back(root);
+        solve(root->right);
+    }
+    void populateNext(Node *root) {
+        solve(root);
+        for(int i=0;i<arr.size()-1;i++)
+            arr[i]->next=arr[i+1];
+        return ;
+        
+    }
+};
+
 /*
     Given a Binary Tree, complete the function to populate the next pointer for all nodes. The next pointer for every node should point to the Inorder successor of the node.
     You do not have to return or print anything. Just make changes in the root node given to you.   
