@@ -29,6 +29,31 @@ class Solution {
     }
 };
 
+//Code-2
+//T.C : O(n)
+//S.C : O(n)
+class Solution {
+  public:
+    unordered_map<int,int>mp;
+    void solve(Node* root,int parent){
+        if(!root)
+            return ;
+        mp[root->data]=parent;
+        solve(root->left,root->data);
+        solve(root->right,root->data);
+    }
+    
+    vector<int> Ancestors(struct Node *root, int target) {
+        solve(root,-1);
+        vector<int>ans;
+        while(mp[target]!=-1){
+            ans.push_back(mp[target]);
+            target=mp[target];
+        }
+        return ans;
+    }
+};
+
 /*
     Given a Binary Tree and an integer target. Find all the ancestors of the given target.
     Note:
