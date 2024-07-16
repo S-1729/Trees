@@ -43,6 +43,54 @@ public:
     }
 };
 
+//Code-2
+class Solution {
+public:
+    TreeNode* LCA(TreeNode* root,int startValue,int destValue){
+        if(!root)
+            return NULL;
+        if(root->val==startValue || root->val==destValue)
+            return root;
+        TreeNode* left=LCA(root->left,startValue,destValue);
+        TreeNode* right=LCA(root->right,startValue,destValue);
+        if(left && right)
+            return root;
+        else if(left)
+            return left;
+        else
+            return right;
+    }
+    
+    bool solve(TreeNode* root,int x,string &str){
+        if(!root)
+            return false;
+        if(root->val==x)
+            return true;
+        str+='L';
+        if(solve(root->left,x,str))
+            return true;
+        str.pop_back();
+        str+='R';
+        if(solve(root->right,x,str))
+            return true;
+        str.pop_back();
+        return false;
+        
+    }
+    
+    string getDirections(TreeNode* root, int startValue, int destValue) {
+        string str1="",str2="";
+        TreeNode* lca=LCA(root,startValue,destValue);
+        solve(lca,startValue,str1);
+        solve(lca,destValue,str2);
+        string ans="";
+        for(int i=0;i<str1.size();i++)
+            ans.push_back('U');
+        ans+=str2;
+        return ans;
+    }
+};
+
 /*
     You are given the root of a binary tree with n nodes. Each node is uniquely assigned a value from 1 to n. You are also given an integer startValue representing the value of the start node s, and a different integer destValue representing the value of the destination node t.
     Find the shortest path starting from node s and ending at node t. Generate step-by-step directions of such path as a string consisting of only the uppercase letters 'L', 'R', and 'U'. Each letter indicates a specific direction:
