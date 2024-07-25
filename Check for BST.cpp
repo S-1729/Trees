@@ -18,6 +18,24 @@ class Solution {
     }
 };
 
+//T.C : O(n)
+class Solution {
+  public:
+    bool solve(Node* root,int minval,int maxval){
+        if(root == nullptr){
+            return true;
+        }
+        if(root->data > maxval || root->data < minval){
+            return false;
+        }
+        return solve(root->left,minval,root->data -1)&&solve(root->right,root->data +1,maxval);;
+    }
+    
+    bool isBST(Node* root) {
+        return solve(root,INT_MIN,INT_MAX);
+    }
+};
+
 /*
     Given the root of a binary tree. Check whether it is a BST or not.
     Note: We are considering that BSTs can not contain duplicate Nodes.
